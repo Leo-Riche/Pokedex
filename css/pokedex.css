@@ -1,0 +1,81 @@
+.pokedexSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pokedexSection > .intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 64px;
+    padding-bottom: 32px;
+}
+
+.pokedexSection h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.pokedexSection p {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.pokemonList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    padding-inline: 64px;
+    padding-bottom: 32px;
+}
+
+.pokemonCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 4px solid;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
+}
+
+.pokemonCard:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.pokemonCard > img {
+    width: 50%;
+    height: auto;
+}
+
+.pokemonCard > h2 {
+    font-size: 1.5rem;
+}
+
+.pokemonCard > p {
+    font-size: 1rem;
+}
+
+.pokemonCard ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+}
+
+.pokemonCard ul li {
+    list-style: none;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.pokemonCard li {
+    background-color: white;
+    border-radius: 8px;
+    padding: 0.5rem;
+}
