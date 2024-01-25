@@ -4,7 +4,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 100vw;
     padding: 8px;
     z-index: 1;
 }
@@ -39,5 +39,17 @@ header a {
 
 header a:hover {
     background-color: #ff5733;
-    transition: ease-in-out 0.2s;
+    transition: all 0.2s ease-in-out;
+}
+
+@media screen and (max-width: 600px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* header ul {
+        gap: 32px;
+        margin: 0;
+    } */
 }
