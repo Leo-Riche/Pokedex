@@ -26,7 +26,7 @@ header li {
     text-decoration: none;
 }
 
-header a {
+nav a {
     color: #f5f5f5;
     text-align: center;
     padding: 8px;
@@ -36,7 +36,7 @@ header a {
     text-decoration: none;
 }
 
-header a:hover {
+nav a:hover {
     background-color: #ff5733;
     transition: all 0.2s ease-in-out;
 }
