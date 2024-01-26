@@ -4,7 +4,6 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100vw;
     padding: 8px;
     z-index: 1;
 }
@@ -47,9 +46,4 @@ header a:hover {
         flex-direction: column;
         align-items: center;
     }
-
-    /* header ul {
-        gap: 32px;
-        margin: 0;
-    } */
 }

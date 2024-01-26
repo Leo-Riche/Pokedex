@@ -37,7 +37,7 @@ const createPokemonCard = (pokemon) => {
     card.appendChild(name);
 
     const image = document.createElement('img');
-    image.src = pokemon.sprites.front_default;
+    image.dataset.src = pokemon.sprites.front_default;
     card.appendChild(image);
 
     const types = document.createElement('ul');
@@ -57,17 +57,79 @@ const createPokemonCard = (pokemon) => {
     return card;
 }
 
-fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
+const searchInput = document.getElementById('search');
+const select = document.getElementById('filter');
+const allTypes = document.getElementById("allTypes").value;
+
+searchInput.addEventListener('keyup', (event) => {
+    const searchString = event.target.value.toLowerCase();
+    const filteredPokemons = allPokemons.filter((pokemon) => {
+        return pokemon.name.toLowerCase().includes(searchString);
+    });
+    displayPokemons(filteredPokemons);
+    select.value = allTypes;
+});
+
+select.addEventListener('change', (event) => {
+    const selectedType = event.target.value;
+    const allTypes = document.getElementById("allTypes").value;
+    if (selectedType === allTypes) {
+        displayPokemons(allPokemons);
+    } else {
+        const filteredPokemons = allPokemons.filter((pokemon) => pokemon.types.map((type) => type.type.name).includes(selectedType));
+        displayPokemons(filteredPokemons);
+    }
+});
+
+fetch('https://pokeapi.co/api/v2/type')
+    .then((response) => response.json())
+    .then((data) => {
+        const types = data.results.map((type) => type.name);
+        const select = document.getElementById('filter');
+
+        types.forEach((type) => {
+            const option = document.createElement('option');
+            option.value = type;
+            option.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+            select.appendChild(option);
+        });
+        select.removeChild(select.lastChild);
+        select.removeChild(select.lastChild);
+    });
+
+let allPokemons = [];
+
+fetch('https://pokeapi.co/api/v2/pokemon?limit=1302')
     .then((response) => response.json())
     .then((data) => {
         const fetchPromises = data.results.map((pokemon) => fetch(pokemon.url).then((response) => response.json()));
         Promise.all(fetchPromises)
             .then((pokemons) => {
                 pokemons.sort((a, b) => a.id - b.id);
-                const list = document.querySelector('.pokemonList');
-                pokemons.forEach((pokemon) => {
-                    const card = createPokemonCard(pokemon);
-                    list.appendChild(card);
-                });
+                allPokemons = pokemons;
+                displayPokemons(pokemons);
             });
     });
+
+function displayPokemons(pokemons) {
+    const list = document.querySelector('.pokemonList');
+    list.innerHTML = '';
+    pokemons.forEach((pokemon) => {
+        const card = createPokemonCard(pokemon);
+        list.appendChild(card);
+    });
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target.querySelector('img');
+                img.src = img.dataset.src;
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: '0px 0px 200px 0px' });
+
+    document.querySelectorAll('.pokemonCard').forEach(card => {
+        observer.observe(card);
+    });
+}

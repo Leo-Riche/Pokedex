@@ -24,6 +24,37 @@
     margin-bottom: 1rem;
 }
 
+.searchFilter {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+#search {
+    width: 50%;
+    height: 40px;
+    font-size: 24px;
+    font-weight: 400;
+    text-align: center;
+    text-align-last: center;
+    margin-bottom: 1rem;
+}
+
+.filter {
+    width: 160px;
+    height: 40px;
+    font-size: 24px;
+    font-weight: 400;
+    text-align: center;
+    text-align-last: center;
+}
+
+.filter > option {
+    font-size: 16px;
+    text-align: center;
+    text-align-last: center;
+}
+
 .pokemonList {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -89,6 +120,12 @@
     .intro {
         padding-inline: 8px;
         gap: 8px;
+    }
+
+    .filter {
+        width: 120px;
+        height: 32px;
+        font-size: 16px;
     }
 }
 
