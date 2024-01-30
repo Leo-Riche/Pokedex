@@ -38,6 +38,8 @@ const createPokemonCard = (pokemon) => {
 
     const image = document.createElement('img');
     image.dataset.src = pokemon.sprites.front_default;
+    image.alt = `${pokemon.name} image`;
+    image.classList.add('cardImage');
     card.appendChild(image);
 
     const types = document.createElement('ul');
@@ -99,7 +101,7 @@ fetch('https://pokeapi.co/api/v2/type')
 
 let allPokemons = [];
 
-fetch('https://pokeapi.co/api/v2/pokemon?limit=1302')
+fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
     .then((response) => response.json())
     .then((data) => {
         const fetchPromises = data.results.map((pokemon) => fetch(pokemon.url).then((response) => response.json()));
@@ -129,7 +131,15 @@ function displayPokemons(pokemons) {
         });
     }, { rootMargin: '0px 0px 200px 0px' });
 
-    document.querySelectorAll('.pokemonCard').forEach(card => {
+    const cards = document.querySelectorAll('.pokemonCard');
+    cards.forEach(card => {
         observer.observe(card);
+        const image = card.querySelector('.cardImage');
+        card.addEventListener('mouseover', () => {
+            image.classList.add('bounce');
+        });
+        card.addEventListener('mouseout', () => {
+            image.classList.remove('bounce');
+        });
     });
 }
