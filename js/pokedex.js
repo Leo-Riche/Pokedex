@@ -36,6 +36,10 @@ const createPokemonCard = (pokemon) => {
     name.textContent = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
     card.appendChild(name);
 
+    const pokemonId = document.createElement('p');
+    pokemonId.textContent = `#${pokemon.id.toString().padStart(3, '0')}`;
+    card.appendChild(pokemonId);
+
     const image = document.createElement('img');
     image.dataset.src = pokemon.sprites.front_default;
     image.alt = `${pokemon.name} image`;
@@ -140,6 +144,15 @@ function displayPokemons(pokemons) {
         });
         card.addEventListener('mouseout', () => {
             image.classList.remove('bounce');
+        });
+        card.addEventListener('click', () => {
+            const pokemonIdText = card.querySelector('p').innerText;
+            const pokemonId = parseInt(pokemonIdText.replace('#', ''), 10);
+            console.log(pokemonId);
+            const selectedPokemon = allPokemons.find(pokemon => pokemon.id === pokemonId);
+            localStorage.setItem('selectedPokemon', JSON.stringify(selectedPokemon));
+            console.log(localStorage.getItem('selectedPokemon'));
+            window.location.href = 'pokemon.html';
         });
     });
 }

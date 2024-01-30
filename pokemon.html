@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokeAPI</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <header>
+        <a href="/">
+            <img src="img/International_Pokémon_logo.svg.png" alt="Logo Pokemon">
+        </a>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="pokedex.html">Pokedex</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="pokemonPage">
+        <div class="nameId">
+            <h1 id="name">Bulbasaur</h1>
+            <p id="id">#001</p>
+        </div>
+
+        <section class="pokemonSection">
+            <img id="img" class="pokemonImg" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="Bulbasaur">
+            <div class="pokemonInfo">
+                <div class="pokemonTypes">
+                    <h2>Types</h2>
+                    <ul id="types">
+                        <li>Grass</li>
+                        <li>Poison</li>
+                    </ul>
+                </div>
+                <div class="pokemonAbilities">
+                    <h2>Abilities</h2>
+                    <ul id="abilities">
+                        <li>Overgrow</li>
+                        <li>Chlorophyll</li>
+                    </ul>
+                </div>
+                <div class="pokemonStats">
+                    <h2>Stats</h2>
+                    <ul id="stats">
+                        <li>HP: 45</li>
+                        <li>Speed: 45</li>
+                        <li>Attack: 49</li>
+                        <li>Defense: 49</li>
+                        <li>Sp. Attack: 65</li>
+                        <li>Sp. Defense: 65</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>Created by <a href="https://github.com/Leo-Riche">Léo Riché</a></p>
+    </footer>
+
+    <script src="js/pokemon.js"></script>
+</body>
+</html>

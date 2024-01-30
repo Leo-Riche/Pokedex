@@ -2,6 +2,7 @@
 @import url(footer.css);
 @import url(home.css);
 @import url(pokedex.css);
+@import url(pokemon.css);
 
 * {
     margin: 0;
