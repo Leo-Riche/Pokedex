@@ -19,6 +19,27 @@ const typeColors = {
     fairy: '#D685AD',
 };
 
+const typeImages = {
+    normal: 'img/types/normal.png',
+    fire: 'img/types/fire.png',
+    water: 'img/types/water.png',
+    electric: 'img/types/electric.png',
+    grass: 'img/types/grass.png',
+    ice: 'img/types/ice.png',
+    fighting: 'img/types/fighting.png',
+    poison: 'img/types/poison.png',
+    ground: 'img/types/ground.png',
+    flying: 'img/types/flying.png',
+    psychic: 'img/types/psychic.png',
+    bug: 'img/types/bug.png',
+    rock: 'img/types/rock.png',
+    ghost: 'img/types/ghost.png',
+    dragon: 'img/types/dragon.png',
+    dark: 'img/types/dark.png',
+    steel: 'img/types/steel.png',
+    fairy: 'img/types/fairy.png',
+};
+
 const hexToRgb = (hex) => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
@@ -45,13 +66,13 @@ const createPokemonCard = (pokemon) => {
     image.alt = `${pokemon.name} image`;
     image.classList.add('cardImage');
     card.appendChild(image);
-
+    
     const types = document.createElement('ul');
+    types.classList.add('cardTypes');
     pokemon.types.forEach((type) => {
-        const typeLi = document.createElement('li');
-        typeLi.textContent = type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1);
-        typeLi.style.backgroundColor = typeColors[type.type.name];
-        types.appendChild(typeLi);
+        const typeImg = document.createElement('img');
+        typeImg.src = typeImages[type.type.name];
+        types.appendChild(typeImg);
     });
     card.appendChild(types);
 

@@ -96,20 +96,8 @@
 .pokemonCard ul {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     gap: 3rem;
-}
-
-.pokemonCard ul li {
-    list-style: none;
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-.pokemonCard li {
-    background-color: white;
-    border-radius: 8px;
-    padding: 0.5rem;
 }
 
 @media screen and (max-width: 1400px) {
