@@ -115,7 +115,7 @@ window.onload = function() {
             evolutionName = "No further evolution";
         }
         const evolutionElement = document.getElementById('evolution');
-        evolutionElement.textContent = "Evolution: " + evolutionName.charAt(0).toUpperCase() + evolutionName.slice(1);
+        evolutionElement.textContent = evolutionName.charAt(0).toUpperCase() + evolutionName.slice(1);
     }
 
     getEvolution();
