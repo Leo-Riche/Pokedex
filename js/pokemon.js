@@ -80,8 +80,6 @@ window.onload = function() {
     selectedPokemon.types.forEach((type) => {
         const typeImg = document.createElement('img');
         typeImg.src = typeImages[type.type.name];
-        // const color = typeColors[type.type.name];
-        // typeImg.style.backgroundColor = `rgba(${color.r}, ${color.g}, ${color.b}, 0.8)`;
         types.appendChild(typeImg);
     });
 
@@ -98,4 +96,27 @@ window.onload = function() {
         statName.textContent = stat.stat.name.charAt(0).toUpperCase() + stat.stat.name.slice(1) + " : " + stat.base_stat;
         stats.appendChild(statName);
     });
+
+    async function getEvolution() {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${selectedPokemon.id}/`);
+        const species = await response.json();
+        const evolutionResponse = await fetch(species.evolution_chain.url);
+        const evolutionChain = await evolutionResponse.json();
+        let evolutionName;
+        if ((evolutionChain.chain.evolves_to[0] || evolutionChain.chain.evolves_to[0].evolves_to[0]) && (evolutionChain.chain.evolves_to[0].species.name != selectedPokemon.name || evolutionChain.chain.evolves_to[0].evolves_to[0].species.name != selectedPokemon.name)) {
+            if (evolutionChain.chain.species.name === selectedPokemon.name) {
+                evolutionName = evolutionChain.chain.evolves_to[0].species.name;
+            } else if (evolutionChain.chain.evolves_to[0].species.name === selectedPokemon.name) {
+                evolutionName = evolutionChain.chain.evolves_to[0].evolves_to[0].species.name;
+            } else {
+                evolutionName = "No further evolution";
+            }
+        } else {
+            evolutionName = "No further evolution";
+        }
+        const evolutionElement = document.getElementById('evolution');
+        evolutionElement.textContent = "Evolution: " + evolutionName.charAt(0).toUpperCase() + evolutionName.slice(1);
+    }
+
+    getEvolution();
 }
