@@ -49,6 +49,15 @@ const hexToRgb = (hex) => {
     } : null;
 }
 
+let limit = 20;
+let offset = 0;
+
+const getPokemons = async () => {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
+    const data = await response.json();
+    return data.results;
+};
+
 const createPokemonCard = (pokemon) => {
     const card = document.createElement('div');
     card.classList.add('pokemonCard');
@@ -83,6 +92,28 @@ const createPokemonCard = (pokemon) => {
 
     return card;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const loadMorePokemons = async () => {
+        const pokemons = await getPokemons();
+        pokemons.forEach(createPokemonCard);
+        offset += limit;
+      };
+      
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            loadMorePokemons();
+            observer.disconnect();
+          }
+        });
+      });
+
+      observer.observe(document.querySelector('#loading'));
+      
+      loadMorePokemons();
+  });
 
 const searchInput = document.getElementById('search');
 const select = document.getElementById('filter');
@@ -126,7 +157,7 @@ fetch('https://pokeapi.co/api/v2/type')
 
 let allPokemons = [];
 
-fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
+fetch('https://pokeapi.co/api/v2/pokemon?limit=1302')
     .then((response) => response.json())
     .then((data) => {
         const fetchPromises = data.results.map((pokemon) => fetch(pokemon.url).then((response) => response.json()));
