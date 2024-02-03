@@ -147,7 +147,7 @@ function displayPokemons(pokemons) {
     });
 
     const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
+        entries.forEach(entry => {  
             if (entry.isIntersecting) {
                 const img = entry.target.querySelector('img');
                 img.src = img.dataset.src;
@@ -171,8 +171,8 @@ function displayPokemons(pokemons) {
             const pokemonId = parseInt(pokemonIdText.replace('#', ''), 10);
             console.log(pokemonId);
             const selectedPokemon = allPokemons.find(pokemon => pokemon.id === pokemonId);
+            console.log(selectedPokemon);
             localStorage.setItem('selectedPokemon', JSON.stringify(selectedPokemon));
-            console.log(localStorage.getItem('selectedPokemon'));
             window.location.href = 'pokemon.html';
         });
     });

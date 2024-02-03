@@ -121,6 +121,7 @@
     display: flex;
     justify-content: flex-start;
     gap: 64px;
+    cursor: pointer;
 }
 
 #evolution {

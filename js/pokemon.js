@@ -43,7 +43,7 @@ const typeImages = {
 window.onload = function() {
     const storedData = localStorage.getItem('selectedPokemon');
     const selectedPokemon = JSON.parse(storedData);
-
+    
     const pokemonName = document.getElementById('name');
     pokemonName.innerText = selectedPokemon.name.charAt(0).toUpperCase() + selectedPokemon.name.slice(1);
 
@@ -53,6 +53,10 @@ window.onload = function() {
     const image = document.getElementById('img');
     image.src = selectedPokemon.sprites.front_default;
     image.alt = `${selectedPokemon.name} image`;
+
+    const imageFront = document.getElementById('imgFront');
+    imageFront.src = selectedPokemon.sprites.front_default;
+    imageFront.alt = `${selectedPokemon.name} image`;
 
     const imageBack = document.getElementById('imgBack');
     imageBack.src = selectedPokemon.sprites.back_default;
@@ -66,13 +70,11 @@ window.onload = function() {
     imageShinyBack.src = selectedPokemon.sprites.back_shiny;
     imageShinyBack.alt = `${selectedPokemon.name} image`;
 
-    const images = [document.getElementById('img'), document.getElementById('imgBack'), document.getElementById('imgShiny'), document.getElementById('imgShinyBack')];
+    const images = [document.getElementById('img'), document.getElementById("imgFront"), document.getElementById('imgBack'), document.getElementById('imgShiny'), document.getElementById('imgShinyBack')];
 
     images.forEach((image) => {
         image.addEventListener('click', () => {
-            const tempSrc = images[0].src;
             images[0].src = image.src;
-            image.src = tempSrc;
         });
     });
 
@@ -102,12 +104,14 @@ window.onload = function() {
         const species = await response.json();
         const evolutionResponse = await fetch(species.evolution_chain.url);
         const evolutionChain = await evolutionResponse.json();
-        let evolutionName;
+        let evolutionName, evolutionId;
         if ((evolutionChain.chain.evolves_to[0] || evolutionChain.chain.evolves_to[0].evolves_to[0]) && (evolutionChain.chain.evolves_to[0].species.name != selectedPokemon.name || evolutionChain.chain.evolves_to[0].evolves_to[0].species.name != selectedPokemon.name)) {
             if (evolutionChain.chain.species.name === selectedPokemon.name) {
                 evolutionName = evolutionChain.chain.evolves_to[0].species.name;
+                evolutionId = evolutionChain.chain.evolves_to[0].species.url.split("/")[6];
             } else if (evolutionChain.chain.evolves_to[0].species.name === selectedPokemon.name) {
                 evolutionName = evolutionChain.chain.evolves_to[0].evolves_to[0].species.name;
+                evolutionId = evolutionChain.chain.evolves_to[0].evolves_to[0].species.url.split("/")[6];
             } else {
                 evolutionName = "No further evolution";
             }
@@ -115,7 +119,21 @@ window.onload = function() {
             evolutionName = "No further evolution";
         }
         const evolutionElement = document.getElementById('evolution');
+        
         evolutionElement.textContent = evolutionName.charAt(0).toUpperCase() + evolutionName.slice(1);
+        
+        evolutionElement.addEventListener('click', () => {
+            if (evolutionElement.textContent != "No further evolution") {
+                fetch(`https://pokeapi.co/api/v2/pokemon/${evolutionId}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        localStorage.setItem('selectedPokemon', JSON.stringify(data));
+                        window.location.href = "pokemon.html";
+                    });
+            }
+
+        });
+        
     }
 
     getEvolution();
