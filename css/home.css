@@ -22,3 +22,15 @@
     font-size: 1.5rem;
     margin-bottom: 1rem;
 }
+
+@media (max-width: 600px) {
+    .home {
+        height: 80vh;
+    }
+
+    .homeIntro {
+        text-align: center;
+        padding-inline: 32px;
+        gap: 32px;
+    }
+}

@@ -82,6 +82,7 @@ window.onload = function() {
     selectedPokemon.types.forEach((type) => {
         const typeImg = document.createElement('img');
         typeImg.src = typeImages[type.type.name];
+        typeImg.alt = `${type.type.name} type`;
         types.appendChild(typeImg);
     });
 
@@ -120,7 +121,7 @@ window.onload = function() {
         }
         const evolutionElement = document.getElementById('evolution');
         
-        evolutionElement.textContent = evolutionName.charAt(0).toUpperCase() + evolutionName.slice(1);
+        evolutionElement.textContent = evolutionName.charAt(0).toUpperCase() + evolutionName.slice(1);  
         
         evolutionElement.addEventListener('click', () => {
             if (evolutionElement.textContent != "No further evolution") {

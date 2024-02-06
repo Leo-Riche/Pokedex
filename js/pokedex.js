@@ -81,6 +81,7 @@ const createPokemonCard = (pokemon) => {
     pokemon.types.forEach((type) => {
         const typeImg = document.createElement('img');
         typeImg.src = typeImages[type.type.name];
+        typeImg.alt = `${type.type.name} type`;
         types.appendChild(typeImg);
     });
     card.appendChild(types);
